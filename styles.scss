@@ -1,0 +1,42 @@
+@import "./scss/variables", "./scss/mixins", "./scss/columns", "./scss/utils";
+
+html {
+  font-family: "Roboto", sans-serif;
+}
+
+.container {
+  background-color: aquamarine;
+  margin: 0 auto;
+
+  @each $breakpoint, $width in $container-widths {
+    @include device-up($breakpoint, $grid-breakpoints) {
+      @if $breakpoint == "xs" or $breakpoint == "sm" {
+        min-width: $width;
+      } @else {
+        max-width: $width;
+      }
+    }
+  }
+
+  @each $breakpoint, $gap in $columns-gaps {
+    @include device-up($breakpoint, $grid-breakpoints) {
+      padding-right: ($gap / 2);
+      padding-left: ($gap / 2);
+    }
+  }
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+// apenas para teste de visualização
+div[class*="col-"] {
+  background-color: pink;
+  border: 1px solid red;
+  padding: 1rem 0;
+  text-align: center;
+  position: relative;
+}

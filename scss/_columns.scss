@@ -1,0 +1,33 @@
+@each $breakpoint in map-keys($grid-breakpoints) {
+  $min: map-get($grid-breakpoints, $breakpoint);
+  $gap: map-get($columns-gaps, $breakpoint);
+  $label: $breakpoint;
+
+  @include device-up($breakpoint, $grid-breakpoints) {
+    @for $i from 1 through $columns {
+      .col-#{$i} {
+        box-sizing: border-box;
+        flex: 0 0 (100% / $columns * $i);
+        padding-right: ($gap / 2);
+        padding-left: ($gap / 2);
+      }
+      .col-offset-#{$i} {
+        box-sizing: border-box;
+        margin-left: (100% / $columns * $i);
+      }
+
+      .col-#{$label}-#{$i} {
+        box-sizing: border-box;
+        padding-right: ($gap / 2);
+        padding-left: ($gap / 2);
+        flex: 0 0 (100% / $columns * $i);
+      }
+
+      .col-offset-#{$label}-#{$i} {
+        box-sizing: border-box;
+        $num: $i / $columns;
+        margin-left: (100% / $columns * $i);
+      }
+    }
+  }
+}
